@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  body{
+    background-image: radial-gradient(#021027, #000000);
+      color: aliceblue;
+  }
+</style>
+<body> 
+    <h1>HTML Quiz</h1>
+    <p id="timer">Time Left: 5:00</p>
+    <form id="quizForm">
+      <h2>Question 1:</h2>
+      <p>What does HTML stand for?</p>
+      <input type="radio" name="q1" value="a"> a) Hyper Text Markup Language<br>
+      <input type="radio" name="q1" value="b"> b) Home Tool Markup Language<br>
+      <input type="radio" name="q1" value="c"> c) Hyperlinks and Text Markup Language<br>
+      <br>
+  
+      <h2>Question 2:</h2>
+      <p>Which tag is used to define an image in HTML?</p>
+      <input type="radio" name="q2" value="a"> a) &lt;image&gt;<br>
+      <input type="radio" name="q2" value="b"> b) &lt;img&gt;<br>
+      <input type="radio" name="q2" value="c"> c) &lt;picture&gt;<br>
+      <br>
+  
+      <h2>Question 3:</h2>
+      <p>What is the correct HTML element for the largest heading?</p>
+      <input type="radio" name="q3" value="a"> a) &lt;heading&gt;<br>
+      <input type="radio" name="q3" value="b"> b) &lt;h1&gt;<br>
+      <input type="radio" name="q3" value="c"> c) &lt;h6&gt;<br>
+      <br>
+  
+      <h2>Question 4:</h2>
+      <p>What is the correct HTML tag for break?</p>
+      <input type="radio" name="q4" value="a"> a) &lt;break&gt;<br>
+      <input type="radio" name="q4" value="b"> b) &lt;nextLine&gt;<br>
+      <input type="radio" name="q4" value="c"> c) &lt;br&gt;<br>
+      <br>
+  
+      <h2>Question 5:</h2>
+      <p>Choose the correct HTML element to define emphasized text?</p>
+      <input type="radio" name="q5" value="a"> a) &lt;em&gt;<br>
+      <input type="radio" name="q5" value="b"> b) &lt;i&gt;<br>
+      <input type="radio" name="q5" value="c"> c) &lt;italic&gt;<br>
+      <br>
+  
+      <h2>Question 6:</h2>
+      <p>What is the correct HTML for creating a hyperlink?</p>
+      <input type="radio" name="q6" value="a"> a) &lt;url&gt;<br>
+      <input type="radio" name="q6" value="b"> b) &lt;href&gt;<br>
+      <input type="radio" name="q6" value="c"> c) &lt;a&gt;<br>
+      <br>
+  
+      <h2>Question 7:</h2>
+      <p>Which of these elements are all table elements?</p>
+      <input type="radio" name="q7" value="a"> a) &lt;thead,body,tr&gt;<br>
+      <input type="radio" name="q7" value="b"> b) &lt;head,th,table&gt;<br>
+      <input type="radio" name="q7" value="c"> c) &lt;table,tr,td&gt;<br>
+      <br> 
+  
+      <input type="submit" value="Submit">
+      <p id="quiz-percentage"></p>
+    
+</body>
+<script>
+      var timeLeft = 300; // 5 minutes (300 seconds)
+    var timer = setInterval(updateTimer, 1000); // Update timer every second
+
+    function updateTimer() {
+      var minutes = Math.floor(timeLeft / 60);
+      var seconds = timeLeft % 60;
+      document.getElementById("timer").innerHTML = "Time Left: " + minutes + ":" + seconds.toString().padStart(2, '0');
+
+      if (timeLeft === 0) {
+        clearInterval(timer);
+        displayResult(calculateScore());
+      }
+
+      timeLeft--;
+    }
+
+    document.getElementById("quizForm").addEventListener("submit", function(event) {
+      event.preventDefault(); // Prevent form submission
+      clearInterval(timer); // Stop the timer
+
+      displayResult(calculateScore());
+    });
+
+    function calculateScore() {
+      var questions = document.getElementsByTagName("h2");
+      var score = 0;
+
+      for (var i = 0; i < questions.length; i++) {
+        var question = questions[i];
+        var questionNumber = i + 1;
+        var selectedAnswer = document.querySelector('input[name="q' + questionNumber + '"]:checked');
+
+        if (selectedAnswer && selectedAnswer.value === "a") {
+          score++;
+        }
+      }
+
+      return score;
+    }
+
+    function displayResult(score) {
+      var resultHTML = "<h2>Results:</h2><ul>";
+
+      // Generate the result HTML
+
+      resultHTML += "</ul><p>Score: " + score + "</p>";
+      document.getElementById("quizForm").innerHTML = resultHTML;
+    }
+</script>
+</html>
